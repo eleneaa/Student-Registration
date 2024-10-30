@@ -46,10 +46,25 @@ public class StudentCommands {
     }
 
     @ShellMethod("Удалить всех студентов")
-    public String deleteAllStudent(Long id) {
+    public String deleteAllStudent() {
         studentRepository.deleteAll();
         return "Студенты удалены";
     }
+
+    @ShellMethod("Показать всех студентов")
+    public String showAllStudents() {
+        StringBuilder result = new StringBuilder();
+        Iterable<Student> students = studentRepository.findAll();
+
+        for (Student student : students) {
+            result.append(student.toString()).append("\n");
+        }
+
+        if (result.length() == 0) {
+            return "Нет студентов в базе.";
+        }
+
+        return result.toString();}
 }
 
 
